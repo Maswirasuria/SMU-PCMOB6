@@ -5,16 +5,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  
+
   UIManager.setLayoutAnimationEnabledExperimental(true);
 } //Needs to be manually enabled for android
 
 export default function SignInSignUpScreen({ navigation }) {
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [errorText, setErrorText] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorText, setErrorText] = useState('');
+  const [confirmPassword, setConfirmPassword]= useState("");
 
   const [isLogIn, setIsLogIn] = useState(true)
 
@@ -33,6 +34,7 @@ export default function SignInSignUpScreen({ navigation }) {
       await AsyncStorage.setItem("token", response.data.access_token);
       setLoading(false);
       navigation.navigate("Logged In");
+      
     } catch (error) {
       setLoading(false);
       console.log("Error logging in!");
@@ -40,17 +42,44 @@ export default function SignInSignUpScreen({ navigation }) {
       setErrorText(error.response.data.description);
     }
   }
+  async function signUp() {
+    if (password != confirmPassword) {
+      setErrorText("Your passwords don't match. Check and try again.")
+    } else {
+      try {
+        setLoading(true);
+        const response = await axios.post(API + API_SIGNUP, {
+          username,
+          password,
+        });
+        if (response.data.Error) {
+          // We have an error message for if the user already exists
+          setErrorText(response.data.Error);
+          setLoading(false);
+        } else {
+          console.log("Success signing up!");
+          setLoading(false);
+          login();
+        }
+      } catch (error) {
+        setLoading(false);
+        console.log("Error logging in!");
+        console.log(error.response);
+        setErrorText(error.response.data.description);
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {isLogIn ? "Log In" : "Sign Up"}
+        {isLogIn ? "LOG IN" : "Sign Up"}
       </Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Username:"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor="navy"
           onChangeText={(username) => setUsername(username)}
         />
       </View>
@@ -59,7 +88,7 @@ export default function SignInSignUpScreen({ navigation }) {
         <TextInput
           style={styles.textInput}
           placeholder="Password:"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor="navy"
           secureTextEntry={true}
           onChangeText={(pw) => setPassword(pw)}
         />
@@ -70,7 +99,7 @@ export default function SignInSignUpScreen({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder="Confirm Password:"
-            placeholderTextColor="#003f5c"
+            placeholderTextColor="navy"
             secureTextEntry={true}
             onChangeText={(pw) => setConfirmPassword(pw)}
           />
@@ -79,8 +108,9 @@ export default function SignInSignUpScreen({ navigation }) {
       <View/>
       <View>
         <View style={{flexDirection: "row"}}>
+        
           <TouchableOpacity style={styles.button} onPress={login}>
-            <Text style={styles.buttonText}> {isLogIn ? "Log In" : "Sign Up"} </Text>
+            <Text style={styles.buttonText}> { isLogIn ? login : signUp} </Text>
           </TouchableOpacity>
           {loading ? <ActivityIndicator style={{ marginLeft: 10 }}/> : <View/>}
         </View>
@@ -98,7 +128,7 @@ export default function SignInSignUpScreen({ navigation }) {
           setIsLogIn(!isLogIn);
           setErrorText("");
         }}>
-          <Text style={styles.switchText}> {isLogIn ? "No account? Sign up now." : "Already have an account? Log in here."}</Text>
+          <Text style={styles.switchText}> {isLogIn ? "No account? Sign up." : "Already have an account? Log in here."}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -114,7 +144,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 40, 
-    margin: 20
+    margin: 20,
+    fontFamily:"monospace",
+    color: 'navy',
   },
   switchText: {
     fontWeight: '400',
@@ -136,13 +168,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'blue',
-    borderRadius: 25,
+    borderRadius: 30,
+    
   },
   buttonText: {
     fontWeight: '400',
     fontSize: 20, 
     margin: 20,
     color: 'white'
+    
   },
   errorText: {
     fontSize: 15,
