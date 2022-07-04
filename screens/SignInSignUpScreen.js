@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  
   UIManager.setLayoutAnimationEnabledExperimental(true);
 } //Needs to be manually enabled for android
 

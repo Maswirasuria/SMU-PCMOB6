@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignInSignUpScreen from "./screens/SignInSignUpScreen";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
