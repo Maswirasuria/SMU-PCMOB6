@@ -1,23 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, UIManager, LayoutAnimation, ActivityIndicator, Keyboard } from 'react-native';
-import { API, API_LOGIN, API_SIGNUP } from '../constants/API';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  UIManager,
+  LayoutAnimation,
+  ActivityIndicator,
+  Keyboard,
+} from "react-native";
+import { API, API_LOGIN, API_SIGNUP } from "../constants/API";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 } //Needs to be manually enabled for android
 
 export default function SignInSignUpScreen({ navigation }) {
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errorText, setErrorText] = useState('');
-  const [confirmPassword, setConfirmPassword]= useState("");
+  const [errorText, setErrorText] = useState("");
 
-  const [isLogIn, setIsLogIn] = useState(true)
+  const [isLogIn, setIsLogIn] = useState(true);
+
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   async function login() {
     console.log("---- Login time ----");
@@ -34,7 +46,6 @@ export default function SignInSignUpScreen({ navigation }) {
       await AsyncStorage.setItem("token", response.data.access_token);
       setLoading(false);
       navigation.navigate("Logged In");
-      
     } catch (error) {
       setLoading(false);
       console.log("Error logging in!");
@@ -42,9 +53,10 @@ export default function SignInSignUpScreen({ navigation }) {
       setErrorText(error.response.data.description);
     }
   }
+
   async function signUp() {
     if (password != confirmPassword) {
-      setErrorText("Your passwords don't match. Check and try again.")
+      setErrorText("Your passwords don't match. Check and try again.");
     } else {
       try {
         setLoading(true);
@@ -72,63 +84,77 @@ export default function SignInSignUpScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {isLogIn ? "LOG IN" : "Sign Up"}
-      </Text>
+      <Text style={styles.title}>{isLogIn ? "Log In" : "Sign Up"}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Username:"
-          placeholderTextColor="navy"
+          placeholderTextColor="#003f5c"
           onChangeText={(username) => setUsername(username)}
         />
       </View>
-  
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Password:"
-          placeholderTextColor="navy"
+          placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(pw) => setPassword(pw)}
         />
       </View>
 
-      {isLogIn ? <View/> :
+      {isLogIn ? (
+        <View />
+      ) : (
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
             placeholder="Confirm Password:"
-            placeholderTextColor="navy"
+            placeholderTextColor="#003f5c"
             secureTextEntry={true}
             onChangeText={(pw) => setConfirmPassword(pw)}
           />
-        </View>}
+        </View>
+      )}
 
-      <View/>
+      <View />
       <View>
-        <View style={{flexDirection: "row"}}>
-        
-          <TouchableOpacity style={styles.button} onPress={login}>
-            <Text style={styles.buttonText}> { isLogIn ? login : signUp} </Text>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={isLogIn ? login : signUp}
+          >
+            <Text style={styles.buttonText}>
+              {" "}
+              {isLogIn ? "Log In" : "Sign Up"}{" "}
+            </Text>
           </TouchableOpacity>
-          {loading ? <ActivityIndicator style={{ marginLeft: 10 }}/> : <View/>}
+          {loading ? (
+            <ActivityIndicator style={{ marginLeft: 10 }} />
+          ) : (
+            <View />
+          )}
         </View>
       </View>
-      <Text style={styles.errorText}>
-        {errorText}
-      </Text>
+      <Text style={styles.errorText}>{errorText}</Text>
       <TouchableOpacity
         onPress={() => {
           LayoutAnimation.configureNext({
-            duration: 700,
-            create: { type: 'linear', property: 'opacity' },
-            update: { type: 'spring', springDamping: 0.4 }
+            duration: 200,
+            create: { type: "linear", property: "opacity" },
+            update: { type: "spring", springDamping: 0.6 },
           });
           setIsLogIn(!isLogIn);
           setErrorText("");
-        }}>
-          <Text style={styles.switchText}> {isLogIn ? "No account? Sign up." : "Already have an account? Log in here."}</Text>
+        }}
+      >
+        <Text style={styles.switchText}>
+          {" "}
+          {isLogIn
+            ? "No account? Sign up now."
+            : "Already have an account? Log in here."}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -137,21 +163,19 @@ export default function SignInSignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 40, 
+    fontWeight: "bold",
+    fontSize: 40,
     margin: 20,
-    fontFamily:"monospace",
-    color: 'navy',
   },
   switchText: {
-    fontWeight: '400',
-    fontSize: 20, 
-    marginTop: 20
+    fontWeight: "400",
+    fontSize: 20,
+    marginTop: 20,
   },
   inputView: {
     backgroundColor: "#FFC0CB",
@@ -167,20 +191,18 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 30,
-    
+    backgroundColor: "blue",
+    borderRadius: 25,
   },
   buttonText: {
-    fontWeight: '400',
-    fontSize: 20, 
+    fontWeight: "400",
+    fontSize: 20,
     margin: 20,
-    color: 'white'
-    
+    color: "white",
   },
   errorText: {
     fontSize: 15,
-    color: 'red',
-    marginTop: 20
-  }
+    color: "red",
+    marginTop: 20,
+  },
 });
