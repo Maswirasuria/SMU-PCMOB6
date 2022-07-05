@@ -5,6 +5,8 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API, API_POSTS } from "../constants/API";
 import { lightStyles } from "../styles/commonStyles";
+import { useIsFocused } from "@react-navigation/native";
+
 
 export default function IndexScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);
@@ -18,13 +20,16 @@ export default function IndexScreen({ navigation, route }) {
         <TouchableOpacity onPress={addPost}>
           <FontAwesome
             name="plus"
-            size={24}
+            size={22}
             style={{ color: styles.headerTint, marginRight: 15 }}
           />
         </TouchableOpacity>
       ),
     });
   });
+
+    const isFocused = useIsFocused();
+    
 
   useEffect(() => {
     console.log("Setting up nav listener");
@@ -60,15 +65,32 @@ export default function IndexScreen({ navigation, route }) {
     setRefreshing(false);
   }
 
-  function addPost() {}
+  function addPost() {
+    navigation.navigate("Add")
+  }
 
-  function deletePost() {}
+  function deletePost() {
+    async function deletePost(id) {
+      const token = await AsyncStorage.getItem("token");
+      console.log("Deleting " + id);
+      try {
+        const response = await axios.delete(API + API_POSTS + `/${id}`, {
+          headers: { Authorization: `JWT ${token}` },
+        })
+        console.log(response);
+        setPosts(posts.filter((item) => item.id !== id));
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+  }
 
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { post: item })}
+        onPress={() => navigation.navigate("Details", { id:item.id })}
       >
         <View
           style={{
@@ -82,8 +104,8 @@ export default function IndexScreen({ navigation, route }) {
           }}
         >
           <Text style={styles.text}>{item.title}</Text>
-          <TouchableOpacity onPress={deletePost}>
-            <FontAwesome name="trash" size={20} color="#a80000" />
+          <TouchableOpacity onPress={() => deletePost(item.id)}>
+            <FontAwesome name="trash" size={22} color="red" />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
