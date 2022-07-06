@@ -9,7 +9,7 @@ import SignInSignUpScreen from "./screens/SignInSignUpScreen";
 
 const Stack = createStackNavigator();
 
-function App() {
+  function App() {
   const token = useSelector((state) => state.auth.token);
   console.log(token);
   return (

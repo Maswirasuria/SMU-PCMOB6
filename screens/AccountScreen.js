@@ -2,26 +2,26 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   Switch,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { API, API_WHOAMI } from "../constants/API";
-import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
-import { lightModeAction, darkModeAction } from "../redux/ducks/accountPref";
+import { changeModeAction } from "../redux/ducks/accountPref";
 import { logOutAction } from "../redux/ducks/blogAuth";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 
 export default function AccountScreen({ navigation }) {
   const [username, setUsername] = useState(null);
 
   const token = useSelector((state) => state.auth.token);
 
-  const isDark = useSelector((state) => state.accountPrefs.isDark);
+  const isDark = useSelector((state) => state.accountPref.isDark);
   const profilePicture = useSelector(
-    (state) => state.accountPrefs.profilePicture
+    (state) => state.accountPref.profilePicture
   );
   const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ export default function AccountScreen({ navigation }) {
   }
 
   function switchMode() {
-    dispatch(isDark ? lightModeAction() : darkModeAction());
+    dispatch(changeModeAction());
   }
 
   useEffect(() => {
@@ -77,7 +77,10 @@ export default function AccountScreen({ navigation }) {
         {" "}
         Hello {username} !
       </Text>
-      <Image source={{ uri: profilePicture }} />
+      <Image
+        source={{ uri: profilePicture }}
+        style={{ width: 250, height: 250, borderRadius: 200 }}
+      />
       <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
         <Text style={{ marginTop: 10, fontSize: 20, color: "#0000EE" }}>
           {" "}

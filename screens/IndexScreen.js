@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, FlatList, RefreshControl,} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  RefreshControl,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useSelector } from "react-redux";
 import { API, API_POSTS } from "../constants/API";
-import { lightStyles } from "../styles/commonStyles";
-import { useIsFocused } from "@react-navigation/native";
-
+import { darkStyles, lightStyles } from "../styles/commonStyles";
 
 export default function IndexScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const styles = lightStyles;
+
+  const token = useSelector((state) => state.auth.token);
+  const isDark = useSelector((state) => state.accountPref.isDark);
+  const styles = isDark ? darkStyles : lightStyles;
 
   // This is to set up the top right button
   useEffect(() => {
@@ -20,16 +27,13 @@ export default function IndexScreen({ navigation, route }) {
         <TouchableOpacity onPress={addPost}>
           <FontAwesome
             name="plus"
-            size={22}
+            size={24}
             style={{ color: styles.headerTint, marginRight: 15 }}
           />
         </TouchableOpacity>
       ),
     });
   });
-
-    const isFocused = useIsFocused();
-    
 
   useEffect(() => {
     console.log("Setting up nav listener");
@@ -43,7 +47,6 @@ export default function IndexScreen({ navigation, route }) {
   }, []);
 
   async function getPosts() {
-    const token = await AsyncStorage.getItem("token");
     try {
       const response = await axios.get(API + API_POSTS, {
         headers: { Authorization: `JWT ${token}` },
@@ -66,31 +69,27 @@ export default function IndexScreen({ navigation, route }) {
   }
 
   function addPost() {
-    navigation.navigate("Add")
+    navigation.navigate("Add");
   }
 
-  function deletePost() {
-    async function deletePost(id) {
-      const token = await AsyncStorage.getItem("token");
-      console.log("Deleting " + id);
-      try {
-        const response = await axios.delete(API + API_POSTS + `/${id}`, {
-          headers: { Authorization: `JWT ${token}` },
-        })
-        console.log(response);
-        setPosts(posts.filter((item) => item.id !== id));
-      } catch (error) {
-        console.log(error)
-      }
+  async function deletePost(id) {
+    console.log("Deleting " + id);
+    try {
+      const response = await axios.delete(API + API_POSTS + `/${id}`, {
+        headers: { Authorization: `JWT ${token}` },
+      });
+      console.log(response);
+      setPosts(posts.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error);
     }
-
   }
 
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { id:item.id })}
+        onPress={() => navigation.navigate("Details", { id: item.id })}
       >
         <View
           style={{
@@ -105,7 +104,7 @@ export default function IndexScreen({ navigation, route }) {
         >
           <Text style={styles.text}>{item.title}</Text>
           <TouchableOpacity onPress={() => deletePost(item.id)}>
-            <FontAwesome name="trash" size={22} color="red" />
+            <FontAwesome name="trash" size={20} color="#a80000" />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>

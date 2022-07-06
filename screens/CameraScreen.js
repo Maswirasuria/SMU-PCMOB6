@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { uploadPicAction } from "../redux/ducks/accountPref";
 
 export default function CameraScreen({ navigation }) {
-  const isDark = useSelector((state) => state.accountPrefs.isDark);
+  const isDark = useSelector((state) => state.accountPref.isDark);
   const styles = isDark ? darkStyles : lightStyles;
   const dispatch = useDispatch();
 

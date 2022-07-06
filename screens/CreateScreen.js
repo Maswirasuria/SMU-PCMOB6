@@ -1,12 +1,20 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity,} from "react-native";
 import axios from "axios";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useSelector } from "react-redux";
 import { API, API_CREATE } from "../constants/API";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { lightStyles, commonStyles } from "../styles/commonStyles";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 
 export default function CreateScreen({ navigation }) {
-  const styles = { ...lightStyles, ...commonStyles };
+  const token = useSelector((state) => state.auth.token);
+  const isDark = useSelector((state) => state.accountPref.isDark);
+  const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -15,7 +23,6 @@ export default function CreateScreen({ navigation }) {
       title: title,
       content: content,
     };
-    const token = await AsyncStorage.getItem("token");
     try {
       console.log(token);
       const response = await axios.post(API + API_CREATE, post, {
@@ -27,8 +34,6 @@ export default function CreateScreen({ navigation }) {
       console.log(error);
     }
   }
-     
-  
 
   return (
     <View style={styles.container}>
@@ -55,8 +60,8 @@ export default function CreateScreen({ navigation }) {
         </TouchableOpacity>
       </View>
     </View>
-  );}
-
+  );
+}
 
 const additionalStyles = StyleSheet.create({
   input: {
