@@ -1,13 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  Switch,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, Image, Switch, Text, TouchableOpacity,View,} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { API, API_WHOAMI } from "../constants/API";
 import { changeModeAction } from "../redux/ducks/accountPref";
@@ -72,17 +65,17 @@ export default function AccountScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={[styles.container, { alignItems: "center" }]}>
-      <Text style={[styles.title, styles.text, { marginTop: 30 }]}>
+    <View style={[commonStyles.container, { alignItems: "center" }]}>
+      <Text style={[commonStyles.title, styles.text, { marginTop: 30 }]}>
         {" "}
         Hello {username} !
       </Text>
       <Image
         source={{ uri: profilePicture }}
-        style={{ width: 250, height: 250, borderRadius: 200 }}
+        style={{ width: 50, height: 100, borderRadius: 200 }}
       />
       <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-        <Text style={{ marginTop: 10, fontSize: 20, color: "#0000EE" }}>
+        <Text style={{ marginTop: 40, fontSize: 22,fontFamily:"Aldo-Pro" , color: "white" }}>
           {" "}
           No profile picture. Click to take one.{" "}
         </Text>
@@ -98,7 +91,7 @@ export default function AccountScreen({ navigation }) {
         <Text style={[styles.content, styles.text]}> Dark Mode? </Text>
         <Switch value={isDark} onChange={switchMode} />
       </View>
-      <TouchableOpacity style={[styles.button]} onPress={signOut}>
+      <TouchableOpacity style={[commonStyles.button]} onPress={signOut}>
         <Text style={styles.buttonText}>Sign Out</Text>
       </TouchableOpacity>
     </View>

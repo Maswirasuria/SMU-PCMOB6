@@ -1,19 +1,30 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text } from "react-native";
 import { Provider, useSelector } from "react-redux";
 import LoggedInTabStack from "./components/LoggedInTabStack";
 import store from "./redux/configureStore";
 import SignInSignUpScreen from "./screens/SignInSignUpScreen";
+import { useFonts } from "expo-font";
+
 
 const Stack = createStackNavigator();
 
-  function App() {
+function App() {
   const token = useSelector((state) => state.auth.token);
   console.log(token);
+  
+  const [isFontLoaded] = useFonts({
+    'Aldo-Pro': require("./assets/fonts/AldoPro.otf"),
+    'Aldo-Pro-Bold': require("./assets/fonts/AldoProBold.otf")
+  });
+
+  console.log(isFontLoaded)
+
   return (
-    <NavigationContainer>
+    <>
+    {isFontLoaded ? <NavigationContainer>
       <Stack.Navigator
         initialRouteName={token != null ? "Logged In" : "SignInSignUp"}
         animationEnabled={false}
@@ -25,7 +36,8 @@ const Stack = createStackNavigator();
         <Stack.Screen component={SignInSignUpScreen} name="SignInSignUp" />
         <Stack.Screen component={LoggedInTabStack} name="Logged In" />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer> : <Text>Loading...</Text> }
+    </>
   );
 }
 
@@ -37,11 +49,3 @@ export default function AppWrapper() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -4,12 +4,14 @@ import IndexScreen from "../screens/IndexScreen";
 import CreateScreen from "../screens/CreateScreen";
 import EditScreen from "../screens/EditScreen";
 import ShowScreen from "../screens/DetailsScreen";
-import { lightStyles } from "../styles/commonStyles";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
+import { useSelector } from "react-redux";
 
 const InnerStack = createStackNavigator();
 
 export default function BlogStack() {
-  const styles = lightStyles;
+  const isDark = useSelector((state) => state.accountPref.isDark);
+  const styles = isDark ? darkStyles: lightStyles;
   const headerOptions = {
     headerStyle: styles.header,
     headerTitleStyle: styles.headerTitle,
@@ -36,8 +38,7 @@ export default function BlogStack() {
       <InnerStack.Screen
         name="Edit"
         component={EditScreen}
-        op
-        tions={{ title: "Edit Post", ...headerOptions }}
+        options={{ title: "Edit Post", ...headerOptions }}
       />
     </InnerStack.Navigator>
   );

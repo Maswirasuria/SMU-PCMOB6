@@ -1,12 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity,View,} from "react-native";
 import { useSelector } from "react-redux";
 import { API, API_CREATE } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";

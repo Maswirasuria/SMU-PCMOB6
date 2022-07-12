@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Stack = createStackNavigator();
 
 export default function AccountStack() {
-  const isDark = useSelector((state) => state.accountPrefs.isDark);
+  const isDark = useSelector((state) => state.accountPref.isDark);
   const styles = isDark ? darkStyles : lightStyles;
 
   return (

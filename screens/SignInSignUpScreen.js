@@ -1,20 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  ActivityIndicator,
-  Keyboard,
-  LayoutAnimation,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  UIManager,
+import { ActivityIndicator, Keyboard, LayoutAnimation, Text, TextInput, TouchableOpacity,
+  UIManager, 
   View,
   Platform,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { API, API_LOGIN, API_SIGNUP } from "../constants/API";
 import { logInAction } from "../redux/ducks/blogAuth";
+import { commonStyles } from "../styles/commonStyles";
 
 if (
   Platform.OS === "android" &&
@@ -87,22 +81,22 @@ export default function SignInSignUpScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{isLogIn ? "Log In" : "Sign Up"}</Text>
-      <View style={styles.inputView}>
+    <View style={commonStyles.container}>
+      <Text style={commonStyles.title}>{isLogIn ? "Log In" : "Sign Up"}</Text>
+      <View style={commonStyles.inputView}>
         <TextInput
-          style={styles.textInput}
+          style={commonStyles.textInput}
           placeholder="Username:"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor="#00205B"
           onChangeText={(username) => setUsername(username)}
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View style={commonStyles.inputView}>
         <TextInput
-          style={styles.textInput}
+          style={commonStyles.textInput}
           placeholder="Password:"
-          placeholderTextColor="#003f5c"
+          placeholderTextColor="#00205B"
           secureTextEntry={true}
           onChangeText={(pw) => setPassword(pw)}
         />
@@ -111,9 +105,9 @@ export default function SignInSignUpScreen({ navigation }) {
       {isLogIn ? (
         <View />
       ) : (
-        <View style={styles.inputView}>
+        <View style={commonStyles.inputView}>
           <TextInput
-            style={styles.textInput}
+            style={commonStyles.textInput}
             placeholder="Confirm Password:"
             placeholderTextColor="#003f5c"
             secureTextEntry={true}
@@ -126,10 +120,10 @@ export default function SignInSignUpScreen({ navigation }) {
       <View>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            style={styles.button}
+            style={commonStyles.button}
             onPress={isLogIn ? login : signUp}
           >
-            <Text style={styles.buttonText}>
+            <Text style={commonStyles.buttonText}>
               {" "}
               {isLogIn ? "Log In" : "Sign Up"}{" "}
             </Text>
@@ -141,7 +135,7 @@ export default function SignInSignUpScreen({ navigation }) {
           )}
         </View>
       </View>
-      <Text style={styles.errorText}>{errorText}</Text>
+      <Text style={commonStyles.errorText}>{errorText}</Text>
       <TouchableOpacity
         onPress={() => {
           LayoutAnimation.configureNext({
@@ -153,7 +147,7 @@ export default function SignInSignUpScreen({ navigation }) {
           setErrorText("");
         }}
       >
-        <Text style={styles.switchText}>
+        <Text style={commonStyles.switchText}>
           {" "}
           {isLogIn
             ? "No account? Sign up now."
@@ -163,50 +157,3 @@ export default function SignInSignUpScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 40,
-    margin: 20,
-  },
-  switchText: {
-    fontWeight: "400",
-    fontSize: 20,
-    marginTop: 20,
-  },
-  inputView: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  textInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-  },
-  button: {
-    backgroundColor: "blue",
-    borderRadius: 25,
-  },
-  buttonText: {
-    fontWeight: "400",
-    fontSize: 20,
-    margin: 20,
-    color: "white",
-  },
-  errorText: {
-    fontSize: 15,
-    color: "red",
-    marginTop: 20,
-  },
-});

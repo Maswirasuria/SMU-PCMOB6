@@ -1,47 +1,61 @@
 export const commonStyles = {
+
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: "#34657f"
+    
+  },
   button: {
     backgroundColor: '#2069e0',
-    borderRadius: 15,
+    borderRadius: 55,
     width: "50%",
-    alignItems: "center"
+    alignItems: "center",
+    fontFamily: "Aldo-Pro"
   },
-  buttonText: {
-    fontWeight: '400',
-    fontSize: 20, 
+
+  buttonText: {  
+    fontSize: 30, 
     margin: 10,
     color: 'white',
+    fontFamily: "Aldo-Pro"
+
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 30, 
+    fontSize: 50, 
     textAlign: 'center',
+    fontFamily: "Aldo-Pro-Bold"
+        
   },
   content: {
-    fontWeight: '400',
-    fontSize: 24,
-    margin:"center",
+    fontSize: 30,
+    fontFamily: "Aldo-Pro",
   },
+
+  text: {
+    color: "white",
+    fontFamily: "Aldo-Pro",
+
+  }
 }
 
 export const lightStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: "teal",
-  },
+   
   text: {
-    color: "white",
-      },
+    color: "#00205B",
+    fontFamily: "Aldo-Pro"
+  },
   header: {
-    backgroundColor: "blue",
+    backgroundColor: "#00205b",
     height: 100,
     shadowColor: "black",
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 30,
     color: "white",
+    fontFamily: "Aldo-Pro",
   },
   headerTint: "white",
 };
@@ -49,23 +63,24 @@ export const lightStyles = {
 export const darkStyles = {
   container: {
     flex: 1,
-    backgroundColor: "#878683",
+    backgroundColor: "black",
   },
   text: {
     color: "white",
-    fontSize: 24,
+
   },
   header: {
-    backgroundColor: "#444444",
+    backgroundColor: "#00205b",
     height: 100,
     shadowColor: "black",
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "black",
+    fontSize: 30,
+    fontFamily:"Aldo-Pro",
+    color: "white"
+   
   },
-  headerTint: "#f4d47c"
+  headerTint: "#00205b"
 }

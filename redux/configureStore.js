@@ -1,10 +1,12 @@
-import { combineReducers , createStore } from 'redux';
-import blogAuthReducer from './ducks/blogAuth'
+import { combineReducers, createStore } from "redux";
+import accountPrefReducer from "./ducks/accountPref";
+import blogAuthReducer from "./ducks/blogAuth";
 
-const Reducer = combineReducers({
-  auth: blogAuthReducer
-})
+const reducer = combineReducers({
+  auth: blogAuthReducer,
+  accountPref: accountPrefReducer
+});
 
-const store = createStore(Reducer);
+const store = createStore(reducer);
 
 export default store;

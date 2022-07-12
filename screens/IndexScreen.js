@@ -1,13 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, RefreshControl, Text, TouchableOpacity, View,} from "react-native";
 import { useSelector } from "react-redux";
 import { API, API_POSTS } from "../constants/API";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
