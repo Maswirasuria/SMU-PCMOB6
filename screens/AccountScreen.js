@@ -39,7 +39,7 @@ export default function AccountScreen({ navigation }) {
       } else {
         console.log(error);
       }
-      // We should probably go back to the login screen???
+      /// We should probably go back to the login screen???
     }
   }
 
@@ -68,7 +68,7 @@ export default function AccountScreen({ navigation }) {
     <View style={[commonStyles.container, { alignItems: "center" }]}>
       <Text style={[commonStyles.title, styles.text, { marginTop: 30 }]}>
         {" "}
-        Hello {username} !
+        WELCOME TO G-BLOG {username} 
       </Text>
       <Image
         source={{ uri: profilePicture }}
@@ -77,7 +77,7 @@ export default function AccountScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
         <Text style={{ marginTop: 40, fontSize: 22,fontFamily:"Aldo-Pro" , color: "white" }}>
           {" "}
-          No profile picture. Click to take one.{" "}
+          UPLOAD YOUR PROFILE. CLICK HERE.{" "}
         </Text>
       </TouchableOpacity>
       <View
@@ -88,11 +88,11 @@ export default function AccountScreen({ navigation }) {
           margin: 20,
         }}
       >
-        <Text style={[styles.content, styles.text]}> Dark Mode? </Text>
+        <Text style={[styles.content, styles.text]}> LOVE DARK MODE </Text>
         <Switch value={isDark} onChange={switchMode} />
       </View>
       <TouchableOpacity style={[commonStyles.button]} onPress={signOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
+        <Text style={styles.buttonText}>LOG OUT</Text>
       </TouchableOpacity>
     </View>
   );

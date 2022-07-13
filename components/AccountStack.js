@@ -17,7 +17,7 @@ export default function AccountStack() {
         component={AccountScreen}
         name="Account"
         options={{
-          title: "Your Account",
+          title: "YOUR G-BLOG",
           headerStyle: styles.header,
           headerTitleStyle: styles.headerTitle,
           headerLeft: null,

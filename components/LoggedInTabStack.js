@@ -4,6 +4,7 @@ import BlogStack from "../components/BlogStack";
 import AccountStack from "../components/AccountStack";
 import { FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
+import { commonStyles } from "../styles/commonStyles";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function LoggedInTabStack() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+       
         tabBarActiveTintColor: "#00205b",
         tabBarInactiveTintColor: "teal",
         tabBarStyle: {
@@ -30,8 +32,8 @@ export default function LoggedInTabStack() {
         },
       })}
     >
-      <Tab.Screen name="Blog" component={BlogStack} />
-      <Tab.Screen name="Settings" component={AccountStack} />
+      <Tab.Screen name="Blog" component={BlogStack} options={{headerShown: false}} />
+      <Tab.Screen name="Settings" component={AccountStack}  options={{headerShown: false}} />
     </Tab.Navigator>
   );
 }

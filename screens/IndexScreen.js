@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, TouchableOpacity, View,} from "react-native";
 import { useSelector } from "react-redux";
 import { API, API_POSTS } from "../constants/API";
-import { darkStyles, lightStyles } from "../styles/commonStyles";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 
 export default function IndexScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);
@@ -90,7 +90,7 @@ export default function IndexScreen({ navigation, route }) {
             padding: 10,
             paddingTop: 20,
             paddingBottom: 20,
-            borderBottomColor: "#ccc",
+            borderBottomColor: "#00205b",
             borderBottomWidth: 1,
             flexDirection: "row",
             justifyContent: "space-between",
@@ -98,7 +98,7 @@ export default function IndexScreen({ navigation, route }) {
         >
           <Text style={styles.text}>{item.title}</Text>
           <TouchableOpacity onPress={() => deletePost(item.id)}>
-            <FontAwesome name="trash" size={20} color="#a80000" />
+            <FontAwesome name="trash" size={30} color="#a80000" />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>

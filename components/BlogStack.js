@@ -23,7 +23,7 @@ export default function BlogStack() {
       <InnerStack.Screen
         name="Index"
         component={IndexScreen}
-        options={{ title: "Blog", ...headerOptions, headerLeft: null }}
+        options={{ title: "MY G-BLOG", ...headerOptions, headerLeft: null,  }}
       />
       <InnerStack.Screen
         name="Add"

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { ActivityIndicator, Keyboard, LayoutAnimation, Text, TextInput, TouchableOpacity,
+import { ActivityIndicator, Keyboard, LayoutAnimation, Text, TextInput, TouchableOpacity, StyleSheet,
   UIManager, 
   View,
   Platform,
@@ -82,12 +82,12 @@ export default function SignInSignUpScreen({ navigation }) {
 
   return (
     <View style={commonStyles.container}>
-      <Text style={commonStyles.title}>{isLogIn ? "Log In" : "Sign Up"}</Text>
+      <Text style={commonStyles.title}>{isLogIn ? "LETS GET START" : "GETS START TO G-BLOG"}</Text>
       <View style={commonStyles.inputView}>
         <TextInput
           style={commonStyles.textInput}
           placeholder="Username:"
-          placeholderTextColor="#00205B"
+          placeholderTextColor="white"
           onChangeText={(username) => setUsername(username)}
         />
       </View>
@@ -96,7 +96,7 @@ export default function SignInSignUpScreen({ navigation }) {
         <TextInput
           style={commonStyles.textInput}
           placeholder="Password:"
-          placeholderTextColor="#00205B"
+          placeholderTextColor="white"
           secureTextEntry={true}
           onChangeText={(pw) => setPassword(pw)}
         />
@@ -109,7 +109,7 @@ export default function SignInSignUpScreen({ navigation }) {
           <TextInput
             style={commonStyles.textInput}
             placeholder="Confirm Password:"
-            placeholderTextColor="#003f5c"
+            placeholderTextColor="white"
             secureTextEntry={true}
             onChangeText={(pw) => setConfirmPassword(pw)}
           />
@@ -117,8 +117,7 @@ export default function SignInSignUpScreen({ navigation }) {
       )}
 
       <View />
-      <View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity
             style={commonStyles.button}
             onPress={isLogIn ? login : signUp}
@@ -134,7 +133,6 @@ export default function SignInSignUpScreen({ navigation }) {
             <View />
           )}
         </View>
-      </View>
       <Text style={commonStyles.errorText}>{errorText}</Text>
       <TouchableOpacity
         onPress={() => {
@@ -150,8 +148,8 @@ export default function SignInSignUpScreen({ navigation }) {
         <Text style={commonStyles.switchText}>
           {" "}
           {isLogIn
-            ? "No account? Sign up now."
-            : "Already have an account? Log in here."}
+            ? "NOT A MEMBER LETS JOIN OUR G-BLOG"
+            : "ALREADY A G-BLOG MEMBER? BLOG START HERE"}
         </Text>
       </TouchableOpacity>
     </View>
