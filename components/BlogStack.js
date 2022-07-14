@@ -28,17 +28,17 @@ export default function BlogStack() {
       <InnerStack.Screen
         name="Add"
         component={CreateScreen}
-        options={{ title: "Add Post", ...headerOptions }}
+        options={{ title: "ADD G-BLOG", ...headerOptions }}
       />
       <InnerStack.Screen
         name="Details"
         component={ShowScreen}
-        options={headerOptions}
+        options={{ title:"YOUR G-BLOG", ...headerOptions }}
       />
       <InnerStack.Screen
         name="Edit"
         component={EditScreen}
-        options={{ title: "Edit Post", ...headerOptions }}
+        options={{ title: "EDIT G-BLOG", ...headerOptions }}
       />
     </InnerStack.Navigator>
   );

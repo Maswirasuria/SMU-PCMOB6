@@ -5,6 +5,7 @@ import { FlatList, RefreshControl, Text, TouchableOpacity, View,} from "react-na
 import { useSelector } from "react-redux";
 import { API, API_POSTS } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function IndexScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);

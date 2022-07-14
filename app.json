@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "pcmob6-advanced-blog",
-    "slug": "pcmob6-advanced-blog",
+    "name": "G-BLOG",
+    "slug": "G-BLOG",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/G-BLOG-1.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/G-BLOG.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#34657f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/G-BLOG-1.png",
+        "backgroundColor": "#34657f"
       }
     },
     "web": {

@@ -3,8 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BlogStack from "../components/BlogStack";
 import AccountStack from "../components/AccountStack";
 import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { commonStyles } from "../styles/commonStyles";
+import {SignInSignUpScreen} from "../screens/SignInSignUpScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +36,7 @@ export default function LoggedInTabStack() {
     >
       <Tab.Screen name="Blog" component={BlogStack} options={{headerShown: false}} />
       <Tab.Screen name="Settings" component={AccountStack}  options={{headerShown: false}} />
+      
     </Tab.Navigator>
   );
 }

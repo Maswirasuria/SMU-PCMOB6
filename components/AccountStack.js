@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AccountScreen from "../screens/AccountScreen";
 import CameraScreen from "../screens/CameraScreen";
-import { darkStyles, lightStyles } from "../styles/commonStyles";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
@@ -17,7 +17,7 @@ export default function AccountStack() {
         component={AccountScreen}
         name="Account"
         options={{
-          title: "YOUR G-BLOG",
+          title: "YOUR G-BLOG PROFILE",
           headerStyle: styles.header,
           headerTitleStyle: styles.headerTitle,
           headerLeft: null,
@@ -27,7 +27,7 @@ export default function AccountStack() {
         component={CameraScreen}
         name="Camera"
         options={{
-          title: "Take a photo",
+          title: "TAKE A SHOOT",
           headerStyle: styles.header,
           headerTitleStyle: styles.headerTitle,
           headerTintColor: styles.headerTint,

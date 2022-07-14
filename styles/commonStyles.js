@@ -19,7 +19,7 @@ export const commonStyles = {
   },
 
   buttonText: {  
-    fontSize: 30, 
+    fontSize: 20, 
     margin: 10,
     color: 'white',
     fontFamily: "Aldo-Pro",

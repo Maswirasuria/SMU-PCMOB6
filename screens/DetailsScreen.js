@@ -1,10 +1,11 @@
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { API, API_POSTS } from "../constants/API";
 import { commonStyles, lightStyles, darkStyles } from "../styles/commonStyles";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function ShowScreen({ navigation, route }) {
   const [post, setPost] = useState({ title: "", body: "" });
@@ -53,10 +54,11 @@ export default function ShowScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, styles.text, { margin: 40 }]}>
+      <Image source={{ uri: post.image }} style={{ width: 370, height: 220 }} />
+      <Text style={[styles.title, styles.text, { margin: 10 }]}>
         {post.title}
       </Text>
-      <Text style={[styles.title, styles.text, { margin: 20 }]}>
+      <Text style={[styles.title, styles.text, { margin: 10 }]}>
         {post.content}
       </Text>
     </View>

@@ -1,59 +1,62 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { StyleSheet, Text, View, TextInput, TextEdit, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, View, TextInput, TextEdit, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
-import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
+import { API, API_CREATE, API_POSTS, } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
+import * as ImagePicker from 'expo-image-picker';
+
+
 
 export default function EditScreen({ navigation, route }) {
   // const [post, setPost] = useState({ title: "", content: "" });
   //const [put, setPost] = useState({ title: "", content: "" });
 
+  const [image, setImage] = useState(null);   
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const token = useSelector((state) => state.auth.token);
   const isDark = useSelector((state) => state.accountPref.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
 
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+
+
   useEffect(() => {
     // getPost();
     const post = route.params.post;
     setTitle(post.title)
     setContent(post.content)
+    setImage(post.image)
   }, []);
-
-  async function getPost() {
-    const id = route.params.id;
-    console.log(id);
-    try {
-      const response = await axios.get(API + API_POSTS + "/" + id, {
-        headers: { Authorization: `JWT ${token}` },
-      });
-      console.log(response.data);
-      setPost(response.data);
-    } catch (error) {
-      console.log(error.response.data);
-      if ((error.response.data.error = "Invalid token")) {
-        navigation.navigate("SignInSignUp");
-      }
-    }
-  }
-
-  function editPost() {
-    navigation.navigate("Edit");
-  }
 
   return (
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
-        <Text style={[additionalStyles.label, styles.text]}>Edit Title:</Text>
+      {image && <Image source={{ uri:image }} style={{ width: 340, height: 200 }} />}
+        <Text style={[styles.text, additionalStyles.label]}>G-BLOG TITLE:</Text>
         <TextInput
           style={additionalStyles.input}
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
-        <Text style={[additionalStyles.label, styles.text]}>
-          Edit Details:
+        <Text style={[styles.text,additionalStyles.label, ]}>
+          G-BLOG DETAILS:
         </Text>
         <TextInput
           style={additionalStyles.input}
@@ -64,11 +67,20 @@ export default function EditScreen({ navigation, route }) {
           style={[styles.button, { marginTop: 20 }]}
           onPress={savePost}
         >
-          <Text style={styles.buttonText}>Save</Text>
+          <Text style={styles.buttonText}>SAVE</Text>
         </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={[styles.button,{ marginTop: 20}]}
+          onPress={pickImage}>
+
+          <Text style={styles.buttonText}>UPLOAD PHOTO</Text>
+          </TouchableOpacity>
+      
       </View>
     </View>
-  );
+    );
+    
 
   async function savePost() {
     const post = {
@@ -117,10 +129,14 @@ const additionalStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     marginBottom: 15,
+    color: "white",
   },
   label: {
     fontSize: 28,
     marginBottom: 10,
     marginLeft: 5,
+    color: "white"
+    
   },
+
 });
