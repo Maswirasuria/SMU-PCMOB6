@@ -35,7 +35,7 @@ export const commonStyles = {
   },
 
   content: {
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: "Aldo-Pro",
     
   },
@@ -48,7 +48,7 @@ export const commonStyles = {
   },
   textInput:{
     fontFamily: "Aldo-Pro",
-    fontSize: 30,
+    fontSize: 20,
     textAlign:"center",
     color: 'white',
     

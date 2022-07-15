@@ -6,12 +6,13 @@ import { API, API_WHOAMI } from "../constants/API";
 import { changeModeAction } from "../redux/ducks/accountPref";
 import { logOutAction } from "../redux/ducks/blogAuth";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function AccountScreen({ navigation }) {
   const [username, setUsername] = useState(null);
 
   const token = useSelector((state) => state.auth.token);
-
+  const [image, setImage] = useState(null);   
   const isDark = useSelector((state) => state.accountPref.isDark);
   const profilePicture = useSelector(
     (state) => state.accountPref.profilePicture
@@ -43,6 +44,26 @@ export default function AccountScreen({ navigation }) {
     }
   }
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+
+
+
+
+
   function signOut() {
     dispatch(logOutAction());
     navigation.navigate("SignInSignUp");
@@ -66,20 +87,42 @@ export default function AccountScreen({ navigation }) {
 
   return (
     <View style={[commonStyles.container, { alignItems: "center" }]}>
+
+    
+
       <Text style={[commonStyles.title, styles.text, { marginTop: 30 }]}>
         {" "}
-        WELCOME TO G-BLOG {username} 
+        WELCOME {username} TO G-BLOG 
       </Text>
+
+
+
+
       <Image
         source={{ uri: profilePicture }}
-        style={{ width: 50, height: 100, borderRadius: 200 }}
+        style={{ width: 100, height: 50, borderRadius: 100 }}
       />
+
+<Image
+        source={{ uri: image }}
+        style={{ width: 400, height: 200, borderRadius: 100 }}
+      />
+
+
+
+
+
+
+
       <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-        <Text style={{ marginTop: 40, fontSize: 22,fontFamily:"Aldo-Pro" , color: "white" }}>
+        <Text style={{ marginTop: 40, fontSize: 20,fontFamily:"Aldo-Pro" , color: "white" }}>
           {" "}
-          UPLOAD YOUR PROFILE. CLICK HERE.{" "}
+          UPLOAD YOUR PROFILE. CAMERA TAP HERE.{" "}
         </Text>
       </TouchableOpacity>
+
+
+
       <View
         style={{
           flexDirection: "row",
@@ -91,9 +134,20 @@ export default function AccountScreen({ navigation }) {
         <Text style={[styles.content, styles.text]}> LOVE DARK MODE </Text>
         <Switch value={isDark} onChange={switchMode} />
       </View>
+
+
+
+
       <TouchableOpacity style={[commonStyles.button]} onPress={signOut}>
         <Text style={styles.buttonText}>LOG OUT</Text>
       </TouchableOpacity>
-    </View>
+
+
+      <TouchableOpacity
+          style={[styles.button,{ marginTop: 20}]}    onPress={pickImage}>
+          <Text style={styles.buttonText}>UPLOAD</Text>
+          </TouchableOpacity>
+
+      </View>
   );
 }

@@ -49,20 +49,25 @@ export default function EditScreen({ navigation, route }) {
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
       {image && <Image source={{ uri:image }} style={{ width: 340, height: 200 }} />}
-        <Text style={[styles.text, additionalStyles.label]}>G-BLOG TITLE:</Text>
+        <Text style={[styles.text, additionalStyles.label]}>AIRLINES:</Text>
         <TextInput
           style={additionalStyles.input}
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
+
+
         <Text style={[styles.text,additionalStyles.label, ]}>
-          G-BLOG DETAILS:
+          AIRCRAFT:
         </Text>
         <TextInput
           style={additionalStyles.input}
           value={content}
           onChangeText={(text) => setContent(text)}
         />
+
+           
+
         <TouchableOpacity
           style={[styles.button, { marginTop: 20 }]}
           onPress={savePost}
@@ -74,7 +79,7 @@ export default function EditScreen({ navigation, route }) {
           style={[styles.button,{ marginTop: 20}]}
           onPress={pickImage}>
 
-          <Text style={styles.buttonText}>UPLOAD PHOTO</Text>
+        <Text style={styles.buttonText}>UPLOAD PHOTO</Text>
           </TouchableOpacity>
       
       </View>
@@ -124,7 +129,7 @@ export default function EditScreen({ navigation, route }) {
 
 const additionalStyles = StyleSheet.create({
   input: {
-    fontSize: 24,
+    fontSize: 16,
     fontFamily: "Aldo-Pro",
     borderWidth: 1,
     borderColor: "white",
@@ -132,7 +137,7 @@ const additionalStyles = StyleSheet.create({
     color: "white",
   },
   label: {
-    fontSize: 28,
+    fontSize: 20,
     marginBottom: 10,
     marginLeft: 5,
     color: "white"

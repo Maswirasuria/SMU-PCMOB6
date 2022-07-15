@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { ActivityIndicator, Keyboard, LayoutAnimation, Text, TextInput, TouchableOpacity, StyleSheet,
+import { Image, ActivityIndicator, Keyboard, LayoutAnimation, Text, TextInput, TouchableOpacity, StyleSheet,
   UIManager, 
   View,
   Platform,
@@ -82,6 +82,11 @@ export default function SignInSignUpScreen({ navigation }) {
 
   return (
     <View style={commonStyles.container}>
+      <Image
+            style={{resizeMode:'contain', height: 220, width: 357}}
+            source={require('../assets/G-BLOG.png')}
+            />
+
       <Text style={commonStyles.title}>{isLogIn ? "LETS GET START" : "GETS START TO G-BLOG"}</Text>
       <View style={commonStyles.inputView}>
         <TextInput

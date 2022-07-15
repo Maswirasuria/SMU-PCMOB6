@@ -60,20 +60,29 @@ export default function CreateScreen({ navigation }) {
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
       {image && <Image source={{ uri:image }} style={{ width: 330, height: 200 }} />}
-        <Text style={[additionalStyles.label, styles.text]}>G-BLOG TITLE:</Text>
+        <Text style={[additionalStyles.label, styles.text]}>AIRLINES:</Text>
         <TextInput
           style={additionalStyles.input}
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
+
+
+
         <Text style={[additionalStyles.label, styles.text]}>
-          G-BLOG CONTENT:
+          AIRCRAFT:
         </Text>
         <TextInput
           style={additionalStyles.input}
           value={content}
           onChangeText={(text) => setContent(text)}
         />
+
+     
+
+
+
+
         <TouchableOpacity
           style={[styles.button, { marginTop: 20 }]}
           onPress={savePost}
@@ -95,16 +104,17 @@ export default function CreateScreen({ navigation }) {
 
 const additionalStyles = StyleSheet.create({
   input: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "Aldo-Pro",   
     borderWidth: 1,
     borderColor: "white",
     marginBottom: 15,
   },
   label: {
-    fontSize: 28,
+    fontSize: 30,
     marginBottom: 10,
     marginLeft: 5,
+    
   },
 
 });

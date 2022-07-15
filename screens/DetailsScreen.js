@@ -12,6 +12,43 @@ export default function ShowScreen({ navigation, route }) {
   const token = useSelector((state) => state.auth.token);
   const isDark = useSelector((state) => state.accountPref.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
+  const [image, setImage] = useState(null); 
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     navigation.setOptions({
@@ -54,13 +91,17 @@ export default function ShowScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: post.image }} style={{ width: 370, height: 220 }} />
+
+      <Image source={{ uri: post.image }} style={{ width: 374, height: 220 }} />
+
       <Text style={[styles.title, styles.text, { margin: 10 }]}>
         {post.title}
       </Text>
+
       <Text style={[styles.title, styles.text, { margin: 10 }]}>
         {post.content}
       </Text>
+
     </View>
   );
 }
